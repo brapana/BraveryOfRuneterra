@@ -1,0 +1,110 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container-fluid">
+
+  <!-- Deck Code Modal -->
+  <div class="modal fade" id="deck-code-modal" tabindex="-1" role="dialog" aria-labelledby="deckCodeModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deckCodeModalLongTitle">Deck Code</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p>
+              1. Copy the deck code below.<br>
+              2. Log in to Legends of Runeterra.<br>
+              3. Navigate to the Collection page and click the Import button.<br>
+            </p>
+            <h6>{{ formatted_deck_info['deck_code'] }}</h6>
+            <!-- Hidden text input for clipboard copy functionality -->
+            <input style="position: absolute; left: -1000px; top: -1000px" value="{{ formatted_deck_info['deck_code'] }}" id="deck-code" style="height=0px; width=0px; opacity:0;" readonly></input>
+
+            <button type="button" class="btn btn-primary" onclick="copyDeckCode()" id="copy-button">Copy Deck Code</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <!-- Deck cover and information -->
+  <div class="row justify-content-center" id="deck-contents">
+        <div class="col-lg-4">
+          <div class="row justify-content-center" id="skip">
+            <h3>{{card_type | title}}</h3>
+          </div>
+          <div class="row justify-content-center" id="scroll">
+            <div class="list-group">
+
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active"
+                id="card-info" data-toggle="popover-cover" data-content="{{ formatted_deck_info['deck_stats'] }}">
+                    <img src="{{ url_for('static', filename='images/cards_cropped/' + formatted_deck_info['cover_card'] + '-full.jpg') }}">
+                    <h5 class="mb-1">{{ formatted_deck_info['deck_name'] }}</h5>
+                    <div class="d-flex w-100 justify-content-between">
+                      <!-- Pick a deck adjective at random -->
+                      <text>{{ ['Brave', 'Awful', 'Terrible', 'Horrible', 'Appalling', 'Horrid', 'Horrendous', 'Dreadful', 'Nasty', 'Disgusting', 'Pointless', 'Useless'] | random }} Deck #{{ deck_count }}</text>
+
+                    </div>
+                </a>
+            </div>
+            <!-- Deck code button, calls deck code modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deck-code-modal" id="deck-code-button">Deck Code</button>
+            <!-- new deck button -->
+            <a class="btn btn-primary" href="{{ home_page }}" role="button">
+              <!-- bootstrap shuffle icon -->
+              <svg width="1.15em" height="1.15em" viewBox="0 0 16 16" class="bi bi-shuffle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798 3 13 3v1c-1.798 0-3.173 1.01-4.126 2.082A9.624 9.624 0 0 0 7.556 8a9.624 9.624 0 0 0 1.317 1.918C9.828 10.99 11.204 12 13 12v1c-2.202 0-3.827-1.24-4.874-2.418A10.595 10.595 0 0 1 7 9.05c-.26.43-.636.98-1.126 1.532C4.827 11.76 3.202 13 1 13H.5a.5.5 0 0 1 0-1H1c1.798 0 3.173-1.01 4.126-2.082A9.624 9.624 0 0 0 6.444 8a9.624 9.624 0 0 0-1.317-1.918C4.172 5.01 2.796 4 1 4H.5a.5.5 0 0 1-.5-.5z"/>
+                  <path d="M13 5.466V1.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192zm0 9v-3.932a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384l-2.36 1.966a.25.25 0 0 1-.41-.192z"/>
+              </svg>
+            </a>
+
+          </div>
+
+        </div>
+  </div>
+
+  <!-- Deck content columns -->
+  <div class="row justify-content-center" id="deck-contents">
+
+    {% for card_type in ['champions', 'followers', 'spells'] %}
+
+        <!-- Card type list -->
+        {% if formatted_deck_info[card_type] %}
+        <div class="col-lg-4">
+          <div class="row justify-content-center" id="skip">
+            <h3>{{card_type | title}}: {{ formatted_deck_info['total_' + card_type] }}</h3>
+          </div>
+          <div class="row justify-content-center" id="scroll">
+            <div class="list-group">
+                {% for card_info in formatted_deck_info[card_type] %}
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active"
+                id="card-info" data-toggle="popover" data-content="<img src={{ url_for('static', filename='images/cards_cropped/' + card_info['card_code'] + '.jpg') }} width=200px>">
+                    <img src="{{ url_for('static', filename='images/cards_cropped/' + card_info['card_code'] + '-full.jpg') }}">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h6 class="mb-1">[{{ card_info['cost'] }}] {{ card_info['name'] }}</h6>
+                        <span>x{{ card_info['copies'] }}</span>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+          </div>
+        </div>
+        <br>
+        {% endif %}
+
+    {% endfor %}
+  </div>
+
+  <footer class="page-footer font-small">
+  <p>Bravery of Runeterra isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties.
+    Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+    <p>Bravery of Runeterra is also not associated with Ultimate Bravery or any other "bravery"-type website or application.</p>
+  </footer>
+
+</div>
+
+{% endblock %}

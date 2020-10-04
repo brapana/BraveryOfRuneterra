@@ -1,0 +1,101 @@
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.container-fluid{
+  width:60%;
+}
+
+
+#deck-code-modal h6{
+  word-wrap: break-word;
+}
+
+#deck-code-modal .modal-body{
+  text-align: center;
+}
+
+.list-group{
+  overflow: hidden;
+  width: 90%;
+}
+
+#card-info *{
+  position: relative;
+  z-index: 2;
+  text-shadow: 1px 1px 2px #000000;
+}
+
+#card-info img{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0.5;
+  /* transform-origin: 150px -100px; */
+  /* transform: scaleX(2.0); */
+
+
+}
+
+#deck-contents #scroll{
+  margin-bottom: 15px;
+  overflow-y:scroll;
+  max-height:424px;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+#deck-contents #scroll::-webkit-scrollbar{
+  display: none;
+}
+
+#deck-contents h3{
+  text-align: center;
+}
+
+#deck-contents h6{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#deck-contents h5{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+#deck-info h6{
+  word-wrap: break-word;
+  font-size: small;
+}
+
+
+#deck-info img{
+  width: 30%;
+  /* clip-path: ellipse(30% 50% at 50% 50%); */
+}
+
+
+/* make popover match card color */
+.popover{
+  background: #3a3f44;
+  white-space: nowrap;
+  max-width: none;
+}
+
+footer {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  max-width:88%;
+}
