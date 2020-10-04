@@ -142,9 +142,9 @@ def format_deck_info(deck: [str]) -> dict:
 
     # construct deck stats html for popover
     deck_stats = f"<div class='row'> \
-                        <div class='col-lg-4'><h6>Regions</h6>{region_stats}</div> \
-                        <div class='col-lg-4'><h6>Keywords</h6>{keyword_stats}</div> \
-                        <div class='col-lg-4'><h6>Subtypes</h6>{subtype_stats}</div> \
+                        <div class='col-sm-4'><h6>Regions</h6>{region_stats}<br></div> \
+                        <div class='col-sm-4'><h6>Keywords</h6>{keyword_stats}<br></div> \
+                        <div class='col-sm-4'><h6>Subtypes</h6>{subtype_stats}<br></div> \
                    </div>"
 
     # TODO: If deck is somehow all spells, this will error
@@ -186,6 +186,7 @@ def generate_rand_deck(selected_regions: [str]) -> [str]:
                 non_champion_codes.append(card['cardCode'])
 
     # store the the max amount of copies of each card in each list (3)
+    # TODO: better way to do this?
     champion_codes = champion_codes * MAX_CARD_COPIES
     non_champion_codes = non_champion_codes * MAX_CARD_COPIES
 

@@ -1,18 +1,10 @@
-/* Hide scrollbar for Chrome, Safari and Opera */
-body::-webkit-scrollbar {
-  display: none;
+#home-page-container{
+  max-width:80rem;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
-body {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+#about-container{
+  max-width:80rem;
 }
-
-.container-fluid{
-  width:60%;
-}
-
 
 #deck-code-modal h6{
   word-wrap: break-word;
