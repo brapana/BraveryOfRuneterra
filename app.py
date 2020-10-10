@@ -57,9 +57,6 @@ def home_page():
         random_regions = True
 
 
-    print(f"Selected regions: {selected_regions}")
-
-
     deck = lor_bravery.generate_rand_deck(selected_regions)
 
     formatted_deck_info = lor_bravery.format_deck_info(deck)
