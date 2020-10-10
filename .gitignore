@@ -58,7 +58,7 @@ secrets.py
 .ebextensions/
 test.zip
 secretsAWS.py
-static/images/cards_cropped
+static/images
 set*-en_us.json
 globals-en_us.json
 404.jpg
