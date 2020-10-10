@@ -8,7 +8,7 @@ from flask import flash
 from flask import redirect
 from flask import url_for
 from flask import session
-from flask_pymongo import PyMongo
+from flask_sqlalchemy import SQLAlchemy
 
 from datetime import datetime
 from datetime import timedelta
@@ -22,31 +22,32 @@ import lor_bravery
 
 application = Flask(__name__)
 application.config.from_object(secrets.APP_SETTINGS)
-mongo = PyMongo(application)
+application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(application)
+
+from models import *
 
 
 @application.route('/', methods=['GET'])
 def home_page():
     '''
     Main LOR Bravery Page, generate new deck with selected regions
-    (or pick two random regions) and store the results with a timestamp into MongoDB. 
+    (or pick two random regions) and store the results with a timestamp into MongoDB.
     '''
-
     client_IP = ''
-
     # retrieve client IP (through SSL proxy if necessary)
     if request.headers.getlist("X-Forwarded-For"):
         client_IP = request.headers.getlist("X-Forwarded-For")[0]
     else:
         client_IP = request.remote_addr
-
     # create correctly labeled utcnow object (for correct timezone conversion)
     utc_now = datetime.utcnow()
     utc_now = utc_now.replace(tzinfo=utc)
 
+
+    # if regions are not selected, generate two random regions to use
     selected_regions = []
     random_regions = True
-
     if 'regions' in request.args:
         selected_regions = request.args.getlist('regions')
         random_regions = False
@@ -55,15 +56,17 @@ def home_page():
         random_regions = True
 
 
+    # generate random deck with these regions and return formatted deck info
     deck = lor_bravery.generate_rand_deck(selected_regions)
-
     formatted_deck_info = lor_bravery.format_deck_info(deck)
 
-    # store generated deck with timestamp and IP into mongo db
-    deck_history = mongo.db['deck_history']
-    deck_history.insert_one({'ip_address': client_IP, 'time_stamp': utc_now, 'deck_code': formatted_deck_info['deck_code']})
-    deck_count = deck_history.count()
 
+    # store generated deck code with timestamp and IP into postgreSQL table
+    deck_history_item = DeckHistory(deck_code = formatted_deck_info['deck_code'], ip_address=client_IP, time_stamp=utc_now)
+    db.session.add(deck_history_item)
+    db.session.commit()
+
+    deck_count = db.session.query(DeckHistory).count()
 
     return render_template('index.html', selected_regions=selected_regions, random_regions=random_regions,
                             formatted_deck_info=formatted_deck_info, deck_count=deck_count, regions=lor_bravery.ALL_REGIONS)
@@ -74,7 +77,6 @@ def about_page():
     '''
     About LOR Bravery Page
     '''
-
     return render_template('about.html')
 
 

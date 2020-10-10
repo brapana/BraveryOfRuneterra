@@ -8,7 +8,7 @@ class Config(object):
     TESTING = False
     CSRF_ENABLED = True
     SECRET_KEY = secrets.SECRET_KEY
-    MONGO_URI = secrets.DATABASE_URL
+    SQLALCHEMY_DATABASE_URI = secrets.DATABASE_URL
 
 
 class ProductionConfig(Config):
