@@ -28,7 +28,8 @@ mongo = PyMongo(application)
 @application.route('/', methods=['GET'])
 def home_page():
     '''
-    Main LOR Bravery Page
+    Main LOR Bravery Page, generate new deck with selected regions
+    (or pick two random regions) and store the results with a timestamp into MongoDB. 
     '''
 
     client_IP = ''
@@ -39,15 +40,12 @@ def home_page():
     else:
         client_IP = request.remote_addr
 
-
     # create correctly labeled utcnow object (for correct timezone conversion)
     utc_now = datetime.utcnow()
     utc_now = utc_now.replace(tzinfo=utc)
 
-
     selected_regions = []
     random_regions = True
-
 
     if 'regions' in request.args:
         selected_regions = request.args.getlist('regions')

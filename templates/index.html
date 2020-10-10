@@ -22,7 +22,6 @@
             <h6>{{ formatted_deck_info['deck_code'] }}</h6>
             <!-- Hidden text input for clipboard copy functionality -->
             <input style="position: absolute; left: -1000px; top: -1000px" value="{{ formatted_deck_info['deck_code'] }}" id="deck-code" style="height=0px; width=0px; opacity:0;" readonly></input>
-
             <button type="button" class="btn btn-primary" onclick="copyDeckCode()" id="copy-button">Copy Deck Code</button>
 
         </div>
@@ -35,7 +34,6 @@
   <!-- Deck cover and information -->
   <div class="row justify-content-center" id="deck-contents">
         <div class="col-xs-4">
-
           <form method="GET" style="margin-left: 10px;">
             <span class="form-group">
               <select class="image-picker show-html" data-limit="2" multiple="multiple" name="regions">
@@ -54,14 +52,13 @@
                       <div class="d-flex w-100 justify-content-between">
                         <!-- Pick a deck adjective at random -->
                         <text>{{ ['Brave', 'Awful', 'Terrible', 'Horrible', 'Appalling', 'Horrid', 'Horrendous', 'Dreadful', 'Nasty', 'Disgusting', 'Pointless', 'Useless'] | random }} Deck #{{ deck_count }}</text>
-
                       </div>
                   </a>
               </div>
               <!-- Deck code button, calls deck code modal -->
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deck-code-modal" id="deck-code-button">Deck Code</button>
               <!-- generate deck button -->
-              <button type="submit" class="btn btn-primary" href="{{ home_page }}">
+              <button type="submit" class="btn btn-primary"">
                 <!-- bootstrap shuffle icon -->
                 <svg width="1.15em" height="1.15em" viewBox="0 0 16 16" class="bi bi-shuffle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M0 3.5A.5.5 0 0 1 .5 3H1c2.202 0 3.827 1.24 4.874 2.418.49.552.865 1.102 1.126 1.532.26-.43.636-.98 1.126-1.532C9.173 4.24 10.798
