@@ -16,8 +16,6 @@ function copyDeckCode() {
 
   copy_button.innerText = "Copied!";
 
-  setTimeout(function(){ copy_button.innerText = "Copy Deck Code"; }, 3000);
-
   document.execCommand("copy");
 }
 
@@ -28,3 +26,6 @@ $('#deck-code-button').on({
         $(this).blur();
     }
 });
+
+// Activate imagepicker
+$("select").imagepicker({limit_reached: function(){alert('Only two regions may be picked!')}})

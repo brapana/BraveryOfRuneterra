@@ -23,8 +23,9 @@ MAX_DECK_SIZE = 40
 MAX_CHAMPIONS = 6
 MAX_CARD_COPIES = 3
 
-# extract all available regions from globals_dict
-ALL_REGIONS = [x['nameRef'] for x in globals_dict['regions']]
+# list of all regions (matching regionRef properties from Riot's bundles)
+ALL_REGIONS = ["Targon", "Noxus", "Demacia", "Freljord", "ShadowIsles", "Ionia",
+               "Bilgewater", "PiltoverZaun"]
 
 
 def find_card_info(card_code: str) -> dict:

@@ -25,7 +25,7 @@ application.config.from_object(secrets.APP_SETTINGS)
 mongo = PyMongo(application)
 
 
-@application.route('/', methods=['GET', 'POST'])
+@application.route('/', methods=['GET'])
 def home_page():
     '''
     Main LOR Bravery Page
@@ -45,10 +45,24 @@ def home_page():
     utc_now = utc_now.replace(tzinfo=utc)
 
 
-    deck = lor_bravery.generate_rand_deck(lor_bravery.pick_rand_n_regions(2, lor_bravery.ALL_REGIONS))
+    selected_regions = []
+    random_regions = True
+
+
+    if 'regions' in request.args:
+        selected_regions = request.args.getlist('regions')
+        random_regions = False
+    else:
+        selected_regions = lor_bravery.pick_rand_n_regions(2, lor_bravery.ALL_REGIONS)
+        random_regions = True
+
+
+    print(f"Selected regions: {selected_regions}")
+
+
+    deck = lor_bravery.generate_rand_deck(selected_regions)
 
     formatted_deck_info = lor_bravery.format_deck_info(deck)
-
 
     # store generated deck with timestamp and IP into mongo db
     deck_history = mongo.db['deck_history']
@@ -56,7 +70,8 @@ def home_page():
     deck_count = deck_history.count()
 
 
-    return render_template('index.html', formatted_deck_info=formatted_deck_info, deck_count=deck_count)
+    return render_template('index.html', selected_regions=selected_regions, random_regions=random_regions,
+                            formatted_deck_info=formatted_deck_info, deck_count=deck_count, regions=lor_bravery.ALL_REGIONS)
 
 
 @application.route('/about', methods=['GET'])
