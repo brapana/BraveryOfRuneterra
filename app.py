@@ -9,6 +9,7 @@ from flask import redirect
 from flask import url_for
 from flask import session
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import exc
 
 from datetime import datetime
 from datetime import timedelta
@@ -60,13 +61,14 @@ def home_page():
     deck = lor_bravery.generate_rand_deck(selected_regions)
     formatted_deck_info = lor_bravery.format_deck_info(deck)
 
-
-    # store generated deck code with timestamp and IP into postgreSQL table
-    deck_history_item = DeckHistory(deck_code = formatted_deck_info['deck_code'], ip_address=client_IP, time_stamp=utc_now)
-    db.session.add(deck_history_item)
-    db.session.commit()
-
-    deck_count = db.session.query(DeckHistory).count()
+    try:
+        # store generated deck code with timestamp and IP into postgreSQL table
+        deck_history_item = DeckHistory(deck_code = formatted_deck_info['deck_code'], ip_address=client_IP, time_stamp=utc_now)
+        db.session.add(deck_history_item)
+        db.session.commit()
+        deck_count = db.session.query(DeckHistory).count()
+    except SQLAlchemyError:
+        deck_count = "?"
 
     return render_template('index.html', selected_regions=selected_regions, random_regions=random_regions,
                             formatted_deck_info=formatted_deck_info, deck_count=deck_count, regions=lor_bravery.ALL_REGIONS)
