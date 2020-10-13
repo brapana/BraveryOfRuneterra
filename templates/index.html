@@ -42,7 +42,7 @@
             </span>
             <div class="row justify-content-center" id="deck-cover">
               <div class="list-group">
-                  <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active"
+                  <a href="javascript:;" class="list-group-item list-group-item-action flex-column align-items-start active"
                   id="card-info" data-toggle="popover-cover" data-content="{{ formatted_deck_info['deck_stats'] }}">
                       <img src="{{ url_for('static', filename='images/cards_cropped/' + formatted_deck_info['cover_card'] + '-full.jpg') }}">
                       <div class="d-flex w-100 justify-content-between">
@@ -85,7 +85,7 @@
           <div class="row justify-content-center" id="scroll">
             <div class="list-group">
                 {% for card_info in formatted_deck_info[card_type] %}
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active"
+                <a href="javascript:;" class="list-group-item list-group-item-action flex-column align-items-start active"
                 id="card-info" data-toggle="popover" data-content="<img src={{ url_for('static', filename='images/cards_cropped/' + card_info['card_code'] + '.jpg') }} width=200px>">
                     <img src="{{ url_for('static', filename='images/cards_cropped/' + card_info['card_code'] + '-full.jpg') }}">
                     <div class="d-flex w-100 justify-content-between">
