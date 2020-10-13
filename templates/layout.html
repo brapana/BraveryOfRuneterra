@@ -1,6 +1,5 @@
 <!doctype html>
 <html lang="en">
-
   <head>
     {% block head %}
         <!-- meta tags -->
@@ -38,7 +37,6 @@
   </head>
   <body>
 
-
     <!-- Navbar -->
 
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -54,7 +52,6 @@
             </ul>
         </div>
     </nav>
-
 
     <!-- Display Flask flashes as dismissable Bootstrap alerts (category=alert type) -->
     {% with messages = get_flashed_messages(with_categories=true) %}

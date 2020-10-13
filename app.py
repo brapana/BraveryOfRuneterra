@@ -41,10 +41,10 @@ def home_page():
         client_IP = request.headers.getlist("X-Forwarded-For")[0]
     else:
         client_IP = request.remote_addr
+        
     # create correctly labeled utcnow object (for correct timezone conversion)
     utc_now = datetime.utcnow()
     utc_now = utc_now.replace(tzinfo=utc)
-
 
     # if regions are not selected, generate two random regions to use
     selected_regions = []
@@ -55,7 +55,6 @@ def home_page():
     else:
         selected_regions = lor_bravery.pick_rand_n_regions(2, lor_bravery.ALL_REGIONS)
         random_regions = True
-
 
     # generate random deck with these regions and return formatted deck info
     deck = lor_bravery.generate_rand_deck(selected_regions)
