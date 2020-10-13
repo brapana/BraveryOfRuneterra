@@ -9,13 +9,10 @@ from collections import defaultdict
 set01_file = open('set_bundles/en_us/data/set1-en_us.json', 'r', encoding='utf-8')
 set02_file = open('set_bundles/en_us/data/set2-en_us.json', 'r', encoding='utf-8')
 set03_file = open('set_bundles/en_us/data/set3-en_us.json', 'r', encoding='utf-8')
-globals_file = open('core_bundle/en_us/data/globals-en_us.json', 'r', encoding='utf-8')
 
 set01_bundle = json.load(set01_file)
 set02_bundle = json.load(set02_file)
 set03_bundle = json.load(set03_file)
-
-globals_dict = json.load(globals_file)
 
 all_bundles = set01_bundle + set02_bundle + set03_bundle
 
