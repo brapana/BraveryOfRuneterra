@@ -79,6 +79,10 @@ body {
   text-overflow: ellipsis;
 }
 
+#deck-cover h5{
+  max-width: 250px;
+}
+
 #deck-info h6{
   word-wrap: break-word;
   font-size: small;
