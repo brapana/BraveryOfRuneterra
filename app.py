@@ -36,6 +36,7 @@ def home_page():
     Main LOR Bravery Page, generate new deck with selected regions
     (or pick two random regions) and store the results with a timestamp into MongoDB.
     '''
+
     client_IP = ''
     # retrieve client IP (through SSL proxy if necessary)
     if request.headers.getlist("X-Forwarded-For"):
@@ -85,7 +86,7 @@ def about_page():
 @application.route('/riot.txt')
 def riot_txt():
     '''
-    Host riot.txt for verification
+    Host riot.txt for Riot dev verification
     '''
     return send_from_directory('static', 'riot.txt')
 

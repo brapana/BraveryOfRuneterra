@@ -48,7 +48,9 @@ def trim_card_info(card_info: dict):
 
 def find_deck_info(deck: [str]) -> dict:
     """Lookup data for each card in deck and return a list of dicts containing json data from Riot's set bundles."""
+
     champions = []
+    landmarks = []
     followers = []
     spells = []
 
@@ -57,9 +59,12 @@ def find_deck_info(deck: [str]) -> dict:
         card_info = find_card_info(card_code)
         card_info['copies'] = int(card[0])
 
+        # TODO: better way to check for Landmark
         if card_info['supertype'] == 'Champion':
             champions.append(trim_card_info(card_info))
-        elif card_info['type'] == 'Unit' or card_info['type'] == 'Landmark':
+        elif card_info['type'] == 'Landmark':
+            landmarks.append(trim_card_info(card_info))
+        elif card_info['type'] == 'Unit':
             followers.append(trim_card_info(card_info))
         else:
             spells.append(trim_card_info(card_info))
@@ -68,13 +73,15 @@ def find_deck_info(deck: [str]) -> dict:
     champions.sort(key=lambda x: (x['cost'], x['copies']), reverse=True)
     followers.sort(key=lambda x: (x['cost'], x['copies']), reverse=True)
     spells.sort(key=lambda x: (x['cost'], x['copies']), reverse=True)
+    landmarks.sort(key=lambda x: (x['cost'], x['copies']), reverse=True)
 
-    return {'champions': champions, 'followers': followers, 'spells': spells}
+    return {'champions': champions, 'followers': followers, 'spells': spells, 'landmarks': landmarks}
 
 
 def generate_frequency_list(freq_dict: dict) -> [ () ]:
     """Given a dictionary of type key : int return an output of tuple pairs
         in the format [(key, freq), ...] sorted by highest to lowest freq"""
+
     freq_output = []
 
     key_list = list(freq_dict.keys())
@@ -98,15 +105,16 @@ def format_deck_info(deck: [str]) -> dict:
     region_freqs = defaultdict(int)
 
     total_champions = 0
+    total_landmarks = 0
     total_followers = 0
     total_spells = 0
 
     cards_output = f""
 
-    flattened_deck_info = deck_info['champions'] + deck_info['followers'] + deck_info['spells']
+    flattened_deck_info = deck_info['champions'] + deck_info['followers'] + deck_info['spells'] + deck_info['landmarks']
 
     # TODO: what in this loop can be removed/calculated without this loop?
-    # gather data on cards, while building the output string
+    # gather data on cards (total count including copies, keywords, subtypes)
     for card_info in flattened_deck_info:
 
         if card_info['type'] == 'Unit':
@@ -121,11 +129,13 @@ def format_deck_info(deck: [str]) -> dict:
                 for subtype in card_info['subtypes']:
                     subtype_freqs[subtype] += 1
 
+        elif card_info['type'] == 'Landmark':
+            total_landmarks += card_info['copies']
+
         else:
             total_spells += card_info['copies']
 
         region_freqs[card_info['region']] += card_info['copies']
-
 
     keyword_freq_list = generate_frequency_list(keyword_freqs)
     subtype_freq_list = generate_frequency_list(subtype_freqs)
@@ -145,26 +155,31 @@ def format_deck_info(deck: [str]) -> dict:
                         <div class='col-sm-4'><h6>Subtypes</h6>{subtype_stats}<br></div> \
                    </div>"
 
-    # TODO: If deck is somehow all spells, this will error
+    # TODO: If deck is somehow all spells/landmarks, this will error
     most_significant_unit = deck_info['champions'][0] if deck_info['champions'] else deck_info['followers'][0]
 
-    # deck name is "[most common keyword/subtype] [most frequent champion or highest cost unit if no champs]"
+    # deck name is "[most common keyword/subtype] [most frequent champion or highest cost unit if no champions]"
     deck_name = f"{capwords(most_freq_keyword[0]) if most_freq_keyword[1] > most_freq_subtype[1] else capwords(most_freq_subtype[0])} {most_significant_unit['name']}"
 
+    # determine how many card types exist in deck (have columns), so that the correct column size is selected in HMTL
+    num_card_types = 0
+    for card_type in ['champions', 'landmarks', 'followers', 'spells']:
+        if deck_info[card_type]:
+            num_card_types += 1
 
     formatted_deck_info = {'deck_name': deck_name, 'deck_code': deck.encode(), 'champions': deck_info['champions'],
-                           'followers': deck_info['followers'], 'spells': deck_info['spells'],
-                           'cover_card': most_significant_unit['card_code'], 'deck_stats': deck_stats,
-                           'total_champions': total_champions, 'total_followers': total_followers, 'total_spells': total_spells}
-
+                           'landmarks': deck_info['landmarks'], 'followers': deck_info['followers'], 'spells': deck_info['spells'],
+                           'cover_card': most_significant_unit['card_code'], 'deck_stats': deck_stats, 'total_champions': total_champions,
+                           'total_landmarks': total_landmarks, 'total_followers': total_followers, 'total_spells': total_spells, 'num_card_types': num_card_types}
 
     return formatted_deck_info
 
 
-
 def pick_rand_n_regions(num_regions: int, regions: [str]) -> [str]:
     """Pick n amount of regions from a list of regions"""
+
     regions = random.choices(regions, k=num_regions)
+
     return regions
 
 
