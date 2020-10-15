@@ -8,6 +8,7 @@ from flask import flash
 from flask import redirect
 from flask import url_for
 from flask import session
+from flask import send_from_directory
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc
 
@@ -41,7 +42,7 @@ def home_page():
         client_IP = request.headers.getlist("X-Forwarded-For")[0]
     else:
         client_IP = request.remote_addr
-        
+
     # create correctly labeled utcnow object (for correct timezone conversion)
     utc_now = datetime.utcnow()
     utc_now = utc_now.replace(tzinfo=utc)
@@ -79,6 +80,14 @@ def about_page():
     About LOR Bravery Page
     '''
     return render_template('about.html')
+
+
+@application.route('/riot.txt')
+def riot_txt():
+    '''
+    Host riot.txt for verification
+    '''
+    return send_from_directory('static', 'riot.txt')
 
 
 @application.errorhandler(404)
