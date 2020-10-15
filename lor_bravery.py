@@ -59,7 +59,7 @@ def find_deck_info(deck: [str]) -> dict:
 
         if card_info['supertype'] == 'Champion':
             champions.append(trim_card_info(card_info))
-        elif card_info['type'] == 'Unit':
+        elif card_info['type'] == 'Unit' or card_info['type'] == 'Landmark':
             followers.append(trim_card_info(card_info))
         else:
             spells.append(trim_card_info(card_info))

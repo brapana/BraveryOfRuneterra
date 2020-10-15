@@ -47,7 +47,7 @@
                       <img src="{{ url_for('static', filename='images/cards_cropped/' + formatted_deck_info['cover_card'] + '-full.jpg') }}">
                       <div class="d-flex w-100 justify-content-between">
                           <h5 class="mb-1">{{ formatted_deck_info['deck_name'] }}</h5>
-                          <text>Patch 1.11</text>
+                          <text>Patch 1.12</text>
                       </div>
                       <div class="d-flex w-100 justify-content-between">
                         <!-- Pick a deck adjective at random -->
@@ -80,7 +80,7 @@
         {% if formatted_deck_info[card_type] %}
         <div class="col-lg-4">
           <div class="row justify-content-center" id="skip">
-            <h3>{{card_type | title}}: {{ formatted_deck_info['total_' + card_type] }}</h3>
+            <h3>{{card_type | title}}{{'/Landmarks' if card_type == 'followers'}}: {{ formatted_deck_info['total_' + card_type] }}</h3>
           </div>
           <div class="row justify-content-center" id="scroll">
             <div class="list-group">
