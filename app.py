@@ -83,6 +83,14 @@ def about_page():
     return render_template('about.html')
 
 
+@application.route('/privacy', methods=['GET'])
+def privacy_page():
+    '''
+    LOR Bravery Privacy Policy Page
+    '''
+    return render_template('privacy.html')
+
+
 # @application.route('/riot.txt')
 # def riot_txt():
 #     '''

@@ -28,4 +28,4 @@ $('#deck-code-button').on({
 });
 
 // Activate imagepicker
-$("select").imagepicker({limit_reached: function(){alert('Only two regions may be picked!')}})
+$("select").imagepicker({limit_reached: function(){alert('No more than two regions may be selected at once!')}})
