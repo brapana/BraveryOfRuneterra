@@ -83,12 +83,12 @@ def about_page():
     return render_template('about.html')
 
 
-@application.route('/riot.txt')
-def riot_txt():
-    '''
-    Host riot.txt for Riot dev verification
-    '''
-    return send_from_directory('static', 'riot.txt')
+# @application.route('/riot.txt')
+# def riot_txt():
+#     '''
+#     Host riot.txt for Riot dev verification
+#     '''
+#     return send_from_directory('static', 'riot.txt')
 
 
 @application.errorhandler(404)
