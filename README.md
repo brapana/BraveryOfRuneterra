@@ -1,6 +1,6 @@
 # Bravery Of Runeterra
 
-Riot Games-approved website hosted [here](https://braveryofruneterra.com/) built in Python3, Flask, Bootstrap4, and JavaScript that generates valid decks for use in their collectible card game Legends of Runeterra. Also utilizes the [LoR Deck Codes Python library](https://github.com/Rafalonso/LoRDeckCodesPython) to convert the generated deck into a code readable by the Legends of Runeterra game client. Allows users to filter cards by type and view deck contents as they appear in-game.
+Riot Games-approved website built in Python3, Flask, Bootstrap4, and JavaScript that generates valid decks for use in their collectible card game Legends of Runeterra. Also utilizes the [LoR Deck Codes Python library](https://github.com/Rafalonso/LoRDeckCodesPython) to convert the generated deck into a code readable by the Legends of Runeterra game client. Allows users to filter cards by type and view deck contents as they appear in-game. This code is hosted at https://braveryofruneterra.com/ via AWS EC2, Elastic Beanstalk, and RDS.
 
 # Features
 ![Bravery of Runeterra Home Page](https://i.imgur.com/TOTi6yK.png "Bravery of Runeterra Home Page")
