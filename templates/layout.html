@@ -21,6 +21,14 @@
         <meta name="twitter:description" content="Test your bravery by generating a deck of randomized cards for use in Riot Games' collectible card game Legends of Runeterra.">
         <meta name="twitter:image" content="{{ url_for('static', filename='favicons/ms-icon-310x310.png') }}">
         <link rel="canonical" href="https://braveryofruneterra.com">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-FMVWGLCDMF"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-FMVWGLCDMF');
+        </script>
     {% endblock %}
 
     {% block head_css %}
