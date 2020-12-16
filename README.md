@@ -35,6 +35,8 @@ python3 app.py
 
 # Note
 
+Deck counting/database functionality is temporarily disabled in order to save on AWS fees, code is still present in comments.
+
 Files such as card images and set bundles are not included in this distribution as they contain property owned by Riot Games.
 
 Bravery of Runeterra isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc. Bravery of Runeterra is also not associated with Ultimate Bravery or any other "bravery"-type website or application.
