@@ -43,7 +43,7 @@
             <div class="row justify-content-center" id="deck-cover">
               <div class="list-group">
                   <a href="javascript:;" class="list-group-item list-group-item-action flex-column align-items-start active"
-                  id="card-info" data-toggle="popover-cover" data-content="{{ formatted_deck_info['deck_stats'] }}">
+                  id="card-info" data-toggle="popover-cover" data-content="{{ formatted_deck_info['deck_stats_html'] }}">
                       <img src="{{ url_for('static', filename='images/cards_cropped/' + formatted_deck_info['cover_card'] + '-full.jpg') }}">
                       <div class="d-flex w-100 justify-content-between">
                           <h5 class="mb-1">{{ formatted_deck_info['deck_name'] }}</h5>
@@ -51,7 +51,9 @@
                       </div>
                       <div class="d-flex w-100 justify-content-between">
                         <!-- Pick a deck adjective at random -->
-                        <text>{{ ['Brave', 'Awful', 'Terrible', 'Horrible', 'Appalling', 'Horrid', 'Horrendous', 'Dreadful', 'Nasty', 'Disgusting', 'Pointless', 'Useless'] | random }} Deck #{{ deck_count }}</text>
+                        <!-- <text>{{['Brave', 'Awful', 'Terrible', 'Horrible', 'Appalling', 'Horrid', 'Horrendous', 'Dreadful', 'Nasty', 'Disgusting', 'Pointless', 'Useless'] | random + " deck"}} </text> -->
+                        <!-- Display message instead of deck count -->
+                        <text>Select region filters above!</text>
                       </div>
                   </a>
               </div>

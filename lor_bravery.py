@@ -149,7 +149,7 @@ def format_deck_info(deck: [str]) -> dict:
     region_stats = "".join([capwords(x[0]) + ": " + str(x[1]) + "<br>" for x in region_freq_list])
 
     # construct deck stats html for popover
-    deck_stats = f"<div class='row'> \
+    deck_stats_html = f"<div class='row'> \
                         <div class='col-sm-4'><h6>Regions</h6>{region_stats}<br></div> \
                         <div class='col-sm-4'><h6>Keywords</h6>{keyword_stats}<br></div> \
                         <div class='col-sm-4'><h6>Subtypes</h6>{subtype_stats}<br></div> \
@@ -169,7 +169,7 @@ def format_deck_info(deck: [str]) -> dict:
 
     formatted_deck_info = {'deck_name': deck_name, 'deck_code': deck.encode(), 'champions': deck_info['champions'],
                            'landmarks': deck_info['landmarks'], 'followers': deck_info['followers'], 'spells': deck_info['spells'],
-                           'cover_card': most_significant_unit['card_code'], 'deck_stats': deck_stats, 'total_champions': total_champions,
+                           'cover_card': most_significant_unit['card_code'], 'deck_stats_html': deck_stats_html, 'total_champions': total_champions,
                            'total_landmarks': total_landmarks, 'total_followers': total_followers, 'total_spells': total_spells, 'num_card_types': num_card_types}
 
     return formatted_deck_info
