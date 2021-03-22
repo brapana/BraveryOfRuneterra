@@ -9,12 +9,14 @@ from collections import defaultdict
 set01_file = open('set_bundles/en_us/data/set1-en_us.json', 'r', encoding='utf-8')
 set02_file = open('set_bundles/en_us/data/set2-en_us.json', 'r', encoding='utf-8')
 set03_file = open('set_bundles/en_us/data/set3-en_us.json', 'r', encoding='utf-8')
+set04_file = open('set_bundles/en_us/data/set4-en_us.json', 'r', encoding='utf-8')
 
 set01_bundle = json.load(set01_file)
 set02_bundle = json.load(set02_file)
 set03_bundle = json.load(set03_file)
+set04_bundle = json.load(set04_file)
 
-all_bundles = set01_bundle + set02_bundle + set03_bundle
+all_bundles = set01_bundle + set02_bundle + set03_bundle + set04_bundle
 
 MAX_DECK_SIZE = 40
 MAX_CHAMPIONS = 6
@@ -22,12 +24,12 @@ MAX_CARD_COPIES = 3
 
 # list of all regions (matching regionRef properties from Riot's bundles)
 ALL_REGIONS = ["Targon", "Noxus", "Demacia", "Freljord", "ShadowIsles", "Ionia",
-               "Bilgewater", "PiltoverZaun"]
+               "Bilgewater", "PiltoverZaun", "Shurima"]
 
 
 def find_card_info(card_code: str) -> dict:
     """Return card info from Riot's set bundle given the card code"""
-    set_dict = {'01': set01_bundle, '02': set02_bundle, '03': set03_bundle}
+    set_dict = {'01': set01_bundle, '02': set02_bundle, '03': set03_bundle, '04': set04_bundle}
 
     for card in set_dict[card_code[:2]]:
         if card['cardCode'] == card_code:
