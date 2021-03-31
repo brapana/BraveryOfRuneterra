@@ -5,7 +5,15 @@ ul.thumbnails.image_picker_selector {
   list-style-position: outside;
   list-style-type: none;
   padding: 0px;
-  margin: 0px; }
+  margin: 0px;
+  }
+
+  @media (min-width: 800px) {
+      ul.thumbnails.image_picker_selector {
+      margin-left: -25px;
+    }
+  }
+
   /* line 15, source/sass/image-picker.scss */
   ul.thumbnails.image_picker_selector ul {
     overflow: auto;
